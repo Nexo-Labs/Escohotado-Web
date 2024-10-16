@@ -870,6 +870,7 @@ type Mutation {
   deletePayloadLockedDocument(id: String!): PayloadLockedDocument
   deletePayloadPreference(id: String!): PayloadPreference
   deleteUser(id: String!): User
+  duplicateMedia(id: String!): Media
   duplicatePayloadLockedDocument(id: String!): PayloadLockedDocument
   duplicatePayloadPreference(id: String!): PayloadPreference
   logoutUser: String

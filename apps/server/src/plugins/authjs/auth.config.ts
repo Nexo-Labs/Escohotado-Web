@@ -16,23 +16,16 @@ export const authConfig: NextAuthConfig = {
       clientId: process.env.AUTH_KEYCLOAK_ID,
       clientSecret: process.env.AUTH_KEYCLOAK_SECRET,
       issuer: process.env.PUBLIC_AUTH_KEYCLOAK_ISSUER,
-      profile(profile, tokens) {
-        if (tokens.access_token) {
-          const decodedToken = jwt.decode(tokens.access_token)
-          if (decodedToken && typeof decodedToken !== 'string') {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            profile.roles = decodedToken.resource_access?.[process.env.AUTH_KEYCLOAK_ID!]?.roles 
-          }
-        }
+      profile(profile) {
         return {
           id: profile.sub,
           name: profile.name,
           email: profile.email,
           image: profile.picture,
-          roles: profile.roles ?? [], // Extend the user
+          roles: profile.roles ?? [],
         }
       },
-    }),
+    })
   ],
   session: {
     strategy: "database",
